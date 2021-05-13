@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake Frontend</title>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js}"></script>
+    <script th:src="@{/index.js}"></script>
+</head>
+<body>
+<button onclick="getUserProfile()">user profile</button>
+<div id="responseBody"></div>
+</body>
+</html>
