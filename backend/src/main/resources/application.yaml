@@ -8,3 +8,8 @@ cas:
   server-logout-url: ${cas.server-url}/logout
   client-url: http://localhost:${server.port}${server.servlet.context-path}
   client-login-url: ${cas.client-url}/login/cas
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: debug

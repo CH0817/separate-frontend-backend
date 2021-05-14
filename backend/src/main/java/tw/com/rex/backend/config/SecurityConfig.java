@@ -23,7 +23,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -34,6 +33,7 @@ import tw.com.rex.backend.web.handler.CustomAuthenticationSuccessHandler;
 
 import javax.servlet.Filter;
 import java.util.Arrays;
+import java.util.Collections;
 
 @AllArgsConstructor
 @Configuration
@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+        http//.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
             .cors().configurationSource(corsConfigurationSource()).and()
             .authorizeRequests().anyRequest().authenticated().and()
             .exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint()).and()
@@ -73,15 +73,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         // 允許跨域請求的 client url
         // configuration.setAllowedOrigins(Collections.singletonList("*"));
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081", "https://cas.example.org:8443"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081", "http://localhost:8083"));
         // 允許跨域請求的 method
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         // 允許跨域請求的 header
-        // configuration.setAllowedHeaders(Collections.singletonList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "Cookie"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
+        // configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "X-XSRF-TOKEN"));
         // 是否允許請求帶有驗證訊息
         configuration.setAllowCredentials(true);
-        configuration.addExposedHeader("X-CSRF-TOKEN");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
