@@ -10,8 +10,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>fake-frontend</artifactId>
-    <name>fake-frontend</name>
+    <artifactId>frontend</artifactId>
+    <name>frontend</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
