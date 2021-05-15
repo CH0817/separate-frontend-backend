@@ -14,13 +14,12 @@ import java.security.Principal;
 
 @Slf4j
 @RestController
-@RequestMapping("/test")
+@RequestMapping(path = "/test",
+                consumes = {MediaType.APPLICATION_JSON_VALUE},
+                produces = {MediaType.APPLICATION_JSON_VALUE})
 public class TestController {
 
-    // @CrossOrigin("http://localhost:8081")
-    @PostMapping(path = "/user/profile",
-                 consumes = {MediaType.APPLICATION_JSON_VALUE},
-                 produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping("/user/profile")
     public HttpEntity<Principal> userProfile(@RequestBody TestRequest request, Principal principal) {
         log.info("request: {}", request);
         log.info("principal: {}", principal);
