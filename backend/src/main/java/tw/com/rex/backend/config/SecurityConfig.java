@@ -48,7 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        final String[] swaggerUrls = {"/swagger-ui/**", "/swagger-resources/**", "/v3/**"};
         http.cors().configurationSource(corsConfigurationSource()).and()
+            .authorizeRequests().antMatchers(swaggerUrls).permitAll().and()
             .authorizeRequests().anyRequest().authenticated().and()
             .exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint()).and()
             .addFilter(casAuthenticationFilter())
